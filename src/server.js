@@ -19,6 +19,12 @@ function createApp({ dataDir = process.env.DATA_DIR || (process.env.VERCEL ? '/t
   app.set('trust proxy', 1);
   app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'", "'unsafe-inline'"], imgSrc: ["'self'", 'data:'] } } }));
   app.use(express.json({ limit: '64kb' }));
+  app.use((req, res, next) => {
+    if (!req.url.startsWith('/api') && !req.url.startsWith('/app.js') && req.url !== '/' && req.url !== '/index.html') {
+      req.url = '/api' + (req.url.startsWith('/') ? '' : '/') + req.url;
+    }
+    next();
+  });
   app.use('/api', rateLimit({ windowMs: 60_000, limit: Number(process.env.RATE_LIMIT || 30), standardHeaders: true, legacyHeaders: false }));
 
   const eq = (a, b) => { const x = Buffer.from(String(a)), y = Buffer.from(String(b)); return x.length === y.length && crypto.timingSafeEqual(x, y); };
