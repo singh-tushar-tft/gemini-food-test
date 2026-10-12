@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YHealth Food Agent</title>
+<style>
+:root{--bg:#0f1419;--card:#18202a;--line:#273241;--tx:#e6edf3;--mut:#8b9bb0;--ac:#3ecf8e;--g:#2ea043;--y:#d4a72c;--r:#e5534b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 90px}h1{font-size:20px;margin:8px 0 2px}.sub{color:var(--mut);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+textarea,input,select{width:100%;background:#0f1419;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
+button{background:var(--ac);color:#04210f;border:0;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer}button.sec{background:transparent;color:var(--tx);border:1px solid var(--line)}
+button:disabled{opacity:.5}.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.q{margin:14px 0}.q b{display:block;margin-bottom:6px}
+.opts{display:flex;gap:6px;flex-wrap:wrap}.opts label{border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer}.opts input{display:none}.opts input:checked+span{color:var(--ac);font-weight:600}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700;color:#000}.Green{background:var(--g)}.Yellow{background:var(--y)}.Red{background:var(--r)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:10px 0}.grid div{background:#0f1419;border-radius:8px;padding:8px;text-align:center}.grid b{display:block;font-size:18px}.grid small,.mut{color:var(--mut)}
+.flag{border-left:3px solid var(--y);padding:4px 10px;margin:6px 0;background:#0f1419}.err{color:var(--r);margin-top:8px;font-size:14px}.info{color:var(--ac);margin-top:8px;font-size:14px}.hide{display:none}
+button.recording{background:var(--r)!important;color:#fff!important;animation:pulse 1.2s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.7}100%{opacity:1}}
+.floating-btn{position:fixed!important;bottom:24px!important;left:50%!important;transform:translateX(-50%)!important;z-index:1000!important;background:var(--ac)!important;color:#04210f!important;box-shadow:0 8px 30px rgba(62,207,142,0.45),0 2px 10px rgba(0,0,0,0.7)!important;border-radius:999px!important;padding:13px 36px!important;font-size:16px!important;font-weight:700!important;border:1px solid rgba(255,255,255,0.25)!important;cursor:pointer!important;transition:all .2s cubic-bezier(0.4,0,0.2,1)!important;animation:floatIn .3s cubic-bezier(0.16,1,0.3,1)!important}
+.floating-btn:hover:not(:disabled){transform:translateX(-50%) translateY(-2px)!important;box-shadow:0 12px 36px rgba(62,207,142,0.6),0 4px 14px rgba(0,0,0,0.8)!important}
+.floating-btn:active:not(:disabled){transform:translateX(-50%) translateY(0)!important}
+@keyframes floatIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+</style></head><body><main>
+<h1>YHealth Food Agent</h1><p class="sub">Tell me what you ate. I’ll ask everything I need, then calculate nutrition and diabetes impact.</p>
+<div class="card" id="codeBox"><input id="code" type="password" placeholder="Access code" autocomplete="off"></div>
+<div class="card"><textarea id="text" rows="3" placeholder="e.g. 2 chapati, 1 katori moong dal, aloo gobi"></textarea>
+<div class="row"><button id="go">Continue</button><button class="sec" id="mic">🎤 Voice</button><button class="sec" id="reset">Reset</button></div><div id="err" class="err"></div></div>
+<div id="qs" class="card hide"></div><div id="out" class="hide"></div>
+<p class="mut">Estimates for logging support; not medical advice.</p>
+</main><script src="app.js?v=2"></script></body></html>
