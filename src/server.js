@@ -9,7 +9,7 @@ const llm = require('./llm');
 const { TTLCache, JsonStore } = require('./store');
 const { normalizeFoodName, scoreItem, scaleNutrition, summarizeMeal } = require('./scoring');
 
-function createApp({ dataDir = process.env.DATA_DIR || path.join(__dirname, '..', 'data'), llmImpl = llm } = {}) {
+function createApp({ dataDir = process.env.DATA_DIR || (process.env.VERCEL ? '/tmp' : path.join(__dirname, '..', 'data')), llmImpl = llm } = {}) {
   const app = express();
   const cache = new TTLCache();
   const store = new JsonStore(dataDir);
