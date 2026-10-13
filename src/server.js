@@ -20,6 +20,7 @@ function createApp({ dataDir = process.env.DATA_DIR || (process.env.VERCEL ? '/t
   app.use(helmet({
     hsts: false,                      // server is plain HTTP; HSTS would force browsers to HTTPS
     crossOriginOpenerPolicy: false,   // requires HTTPS, breaks on plain HTTP origins
+    originAgentCluster: false,        // avoids site-keyed vs origin-keyed cluster warning on HTTP origins
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -27,10 +28,12 @@ function createApp({ dataDir = process.env.DATA_DIR || (process.env.VERCEL ? '/t
         styleSrc:   ["'self'", "'unsafe-inline'"],
         imgSrc:     ["'self'", 'data:'],
         connectSrc: ["'self'"],
+        upgradeInsecureRequests: null, // prevents browser upgrading HTTP resources to HTTPS
       },
     },
   }));
   app.use(express.json({ limit: '64kb' }));
+  app.get('/favicon.ico', (req, res) => res.status(204).end());
   app.use((req, res, next) => {
     if (!req.url.startsWith('/api') && !req.url.startsWith('/app.js') && req.url !== '/' && req.url !== '/index.html') {
       req.url = '/api' + (req.url.startsWith('/') ? '' : '/') + req.url;
