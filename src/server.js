@@ -17,7 +17,7 @@ function createApp({ dataDir = process.env.DATA_DIR || (process.env.VERCEL ? '/t
   const ADMIN = process.env.ADMIN_CODE || ACCESS;
 
   app.set('trust proxy', 1);
-  app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'", "'unsafe-inline'"], imgSrc: ["'self'", 'data:'] } } }));
+  app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'"], styleSrc: ["'self'", "'unsafe-inline'"], imgSrc: ["'self'", 'data:'], connectSrc: ["'self'"] } } }));
   app.use(express.json({ limit: '64kb' }));
   app.use((req, res, next) => {
     if (!req.url.startsWith('/api') && !req.url.startsWith('/app.js') && req.url !== '/' && req.url !== '/index.html') {
