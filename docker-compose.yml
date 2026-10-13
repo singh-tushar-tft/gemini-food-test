@@ -6,15 +6,15 @@ services:
     container_name: yhealth-food-agent
     restart: unless-stopped
     ports:
-      - "3003:3003"
+      - "3004:3004"
     env_file:
       - .env
     environment:
       - NODE_ENV=production
-      - PORT=3003
+      - PORT=3004
       - NO_PERSIST=1
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3003/api/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:3004/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
